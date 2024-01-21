@@ -45,8 +45,8 @@ const TemperatureDetails = ({ locationResponse }) => {
         <div className="temCelciusContainer">
           <div className="temCelcius">
             <h1>{locationResponse.main?.temp.toFixed()}&deg;C</h1>
-            {getWeatherIcon()}
           </div>
+          {getWeatherIcon()}
           {/* <p>Preasure</p> */}
         </div>
       ) : (
