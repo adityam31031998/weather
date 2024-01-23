@@ -6,6 +6,7 @@ const TemperatureDetails = ({
   locationResponse,
   weatherIcon,
   selectedTemp,
+  temperDate,
 }) => {
   function getWeatherIcon() {
     let weatherIconApi = locationResponse?.weather?.[0]?.description;
@@ -37,7 +38,7 @@ const TemperatureDetails = ({
             </div>
             {getWeatherIcon()}
           </div>
-          <TempGraph selectedTemp={selectedTemp} />
+          <TempGraph selectedTemp={selectedTemp} temperDate={temperDate} />
         </>
       ) : (
         <h1>Please Wait</h1>

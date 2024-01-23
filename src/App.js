@@ -60,8 +60,8 @@ function App() {
             selectedTemp={selectedTemp}
             weatherIcon={weatherIcon}
             locationResponse={locationResponse}
+            temperDate={temperDate}
           />
-          {console.log(selectedTemp)}
         </div>
       )}
     </div>

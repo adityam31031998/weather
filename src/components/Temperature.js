@@ -9,7 +9,7 @@ const Temperature = ({ temperDate, weatherIcon, setSelectedTemp }) => {
     return null;
   }
   function hanldeSelectedTemp(date) {
-    console.log(date);
+    setSelectedTemp(date);
   }
   return (
     <div className="days">
@@ -17,7 +17,7 @@ const Temperature = ({ temperDate, weatherIcon, setSelectedTemp }) => {
         {temperDate?.hourly?.map((data, index) => (
           <div key={index}>
             {/* {console.log(data)} */}
-            {console.log(new Date(data.dt * 1000).toLocaleTimeString())}
+            {/* {console.log(new Date(data.dt * 1000).toLocaleTimeString())} */}
             {/* {console.log(new Date(data.dt * 1000).toLocaleDateString())} */}
           </div>
         ))}

@@ -1,41 +1,69 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
-const TempGraph = ({ selectedTemp }) => {
-  useEffect(() => {
-    console.log("Selected Temperature in App:", selectedTemp);
-  }, [selectedTemp]);
+const TempGraph = ({ selectedTemp, temperDate }) => {
+  const [selectedTempData, setSelectedData] = useState({});
+  const [showTempHour, setshowTempHour] = useState(null);
 
-  const chartData = [
-    { dt: 1705939200, temp: 1.01 },
-    { dt: 1705942401, temp: 5.77 },
-    { dt: 1705942905, temp: 33.77 },
-  ];
+  useEffect(() => {
+    const handleSelectedTemp = () => {
+      for (let data in temperDate?.daily) {
+        try {
+          if (selectedTemp?.dt === temperDate?.daily[data]?.dt) {
+            setshowTempHour(temperDate?.hourly);
+            setSelectedData(temperDate);
+          }
+        } catch (error) {
+          console.log("data not fetch", error.message);
+        }
+      }
+    };
+
+    handleSelectedTemp();
+  }, [selectedTemp, temperDate]);
+
   const options = {
     chart: {
       id: "temperature-chart",
     },
     yaxis: {
-      type: "datetime",
+      show: false,
     },
     xaxis: {
       title: {
         text: "Temperature (°C)",
       },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "dark",
+          gradientToColors: ["#FDD835"],
+          shadeIntensity: 1,
+          type: "horizontal",
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [0, 100, 100, 100],
+        },
+      },
     },
   };
 
+  console.log(showTempHour);
   const series = [
     {
       name: "Temperature",
-      data: chartData.map(({ dt, temp }) => [dt * 1000, temp]),
+      data: showTempHour
+        ? showTempHour.map(({ dt, temp }) => [
+            new Date(dt * 1000).getHours(),
+            temp,
+          ])
+        : [],
     },
   ];
+
   return (
     <div>
-      {/* <p>{console.log("s",selectedTemp)}</p> */}
-
-      <Chart options={options} series={series} type="line" width="500" />
+      <Chart options={options} series={series} type="area" width="500" />
     </div>
   );
 };
