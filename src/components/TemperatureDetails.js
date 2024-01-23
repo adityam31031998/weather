@@ -1,20 +1,12 @@
 import React from "react";
 import "../componentCss/TemperatureDetails.css";
-import clearSky from "../assets/icons/weatherIcons/clear.png";
-import scatteredClouds from "../assets/icons/weatherIcons/scatteredClouds.png";
-// import datetime;
-const TemperatureDetails = ({ locationResponse }) => {
-  let weatherIcon = {
-    "clear sky": clearSky,
-    "few clouds": scatteredClouds,
-    "scattered clouds": scatteredClouds,
-    "broken clouds": scatteredClouds,
-    "shower rain": scatteredClouds,
-    rain: scatteredClouds,
-    thunderstorm: scatteredClouds,
-    snow: scatteredClouds,
-    mist: scatteredClouds,
-  };
+import TempGraph from "./TempGraph";
+
+const TemperatureDetails = ({
+  locationResponse,
+  weatherIcon,
+  selectedTemp,
+}) => {
   function getWeatherIcon() {
     let weatherIconApi = locationResponse?.weather?.[0]?.description;
     let weatherIconApiKey;
@@ -34,21 +26,19 @@ const TemperatureDetails = ({ locationResponse }) => {
       );
     }
   }
-  // let timeStamp = locationResponse.dt;
-  // console.log(timeStamp);
-  // const dateObject = new Date(timeStamp * 1000);
-  // const formattedDate = dateObject.toLocaleString();
-  // console.log(formattedDate);
+
   return (
     <div className="tempDetails">
-      {locationResponse.main?.temp ? (
-        <div className="temCelciusContainer">
-          <div className="temCelcius">
-            <h1>{locationResponse.main?.temp.toFixed()}&deg;C</h1>
+      {locationResponse?.main?.temp ? (
+        <>
+          <div className="temCelciusContainer">
+            <div className="temCelcius">
+              <h1>{Math.round(locationResponse?.main?.temp)}&deg;C</h1>
+            </div>
+            {getWeatherIcon()}
           </div>
-          {getWeatherIcon()}
-          {/* <p>Preasure</p> */}
-        </div>
+          <TempGraph selectedTemp={selectedTemp} />
+        </>
       ) : (
         <h1>Please Wait</h1>
       )}

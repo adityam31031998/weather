@@ -97,17 +97,39 @@
     margin-top: 5%;
     width: 100%;
     height: 20cap;
-    background-color: aqua;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
   }
   .currentDate {
-    width: 20%;
+    width: 15%;
     height: 100%;
-    background-color: aquamarine;
+  }
+  .datelist {
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 20cap;
+  }
+
+  .datelist .maxTemperature {
+    width: 70%;
+    margin-left: 15%;
+    height: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: space-around;
+    justify-content: space-around;
+    text-align: center;
   }
   .currentDate:hover {
     border: 2px solid black;
+  }
+  .weathericons {
+    width: 40%;
   }
 }

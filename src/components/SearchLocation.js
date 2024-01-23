@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import "../componentCss/SearchLocation.css";
 import iconLocation from "../assets/icons/location.png";
 import iconSearch from "../assets/icons/searchIcon.png";
-
-const SearchLocation = ({ getLocation, setlocationResponse }) => {
+import citylist from "./cities.json";
+const SearchLocation = ({
+  getLocation,
+  setlocationResponse,
+  setTemperDate,
+}) => {
   const [inputValue, setInputValue] = useState("Delhi");
 
-  // let api_key = "4b1a3c7dc4cfcce014fe7cc37f545cf4";
+  let api_key = "9d81b01f5cf402f40b5e8ffd43a48762";
+  let indiaLatitude;
+  let indialongitude;
   useEffect(() => {
     let api_key = "9d81b01f5cf402f40b5e8ffd43a48762";
 
@@ -14,7 +20,6 @@ const SearchLocation = ({ getLocation, setlocationResponse }) => {
       const currentLocation = async () => {
         try {
           let getCurrentFetchApi = await fetch(
-            // `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${getLocation.latitude}&lon=${getLocation.longitude}&appid=${api_key}`
             `https://api.openweathermap.org/data/2.5/weather?lat=${getLocation.latitude}&lon=${getLocation.longitude}&units=metric&appid=${api_key}`
           );
           let response = await getCurrentFetchApi.json();
@@ -29,15 +34,28 @@ const SearchLocation = ({ getLocation, setlocationResponse }) => {
   }, [getLocation, setlocationResponse]);
   const handleInput = async (e) => {
     setInputValue(e);
-    // if (e !== "") {
-    //   console.log("fdddddddddddddddddd");
-    // } else {
-    //   let otherss = await fetch(
-    //     `http://api.openweathermap.org/geo/1.0/direct?q=${e},"IN"&limit=5&appid=${api_key}`
-    //   );
-    // let response = await otherss.json();
-    // console.log(response);
-    // }
+    if (e !== "") {
+      let searchInput = await fetch(
+        // `http://api.openweathermap.org/geo/1.0/direct?q=${e},"IN"&limit=5&appid=${api_key}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${e}&units=metric&appid=${api_key}`
+      );
+      let response = await searchInput.json();
+      setlocationResponse(response);
+      citylist.forEach((india) => {
+        if (
+          india.country === "IN" &&
+          india.name.toLowerCase() === e.toLowerCase()
+        ) {
+          indiaLatitude = india.coord.lat;
+          indialongitude = india.coord.lon;
+        }
+      });
+      let getInputss = await fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${indiaLatitude}&lon=${indialongitude}&exclude=minutely,alerts&units=metric&appid=${api_key}`
+      );
+      let res = await getInputss.json();
+      setTemperDate(res);
+    }
   };
   return (
     <div className="searchBox">
