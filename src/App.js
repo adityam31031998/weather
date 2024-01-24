@@ -8,6 +8,10 @@ import Temperature from "./components/Temperature";
 import TemperatureDetails from "./components/TemperatureDetails";
 import clearSky from "./assets/icons/weatherIcons/clear.png";
 import scatteredClouds from "./assets/icons/weatherIcons/scatteredClouds.png";
+import fewClouds from "./assets/icons/weatherIcons/fewClouds.png";
+import brokenCloud from "./assets/icons/weatherIcons/brokenCloud.png";
+import overcast from "./assets/icons/weatherIcons/overcast.png";
+import scattered from "./assets/icons/weatherIcons/scatteredCloud.png";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -15,11 +19,12 @@ function App() {
   const [getLocation, setGetLocation] = useState({});
   const [temperDate, setTemperDate] = useState({});
   let [selectedTemp, setSelectedTemp] = useState({});
+  let [selectedOptionalTemp, setSelectedOptionalTemp] = useState({});
   let weatherIcon = {
     "clear sky": clearSky,
-    "few clouds": scatteredClouds,
-    "scattered clouds": scatteredClouds,
-    "broken clouds": scatteredClouds,
+    "few clouds": fewClouds,
+    "scattered clouds": scattered,
+    "broken clouds": brokenCloud,
     "shower rain": scatteredClouds,
     rain: scatteredClouds,
     thunderstorm: scatteredClouds,
@@ -27,7 +32,7 @@ function App() {
     mist: scatteredClouds,
     fog: scatteredClouds,
     smoke: scatteredClouds,
-    "overcast clouds": scatteredClouds,
+    "overcast clouds": overcast,
   };
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -41,6 +46,7 @@ function App() {
 
   return (
     <div className="container">
+      {/* {console.log("object", temperDate)} */}
       {loading ? (
         <Lottie animationData={animationData} className="animationLoadingCss" />
       ) : (
@@ -52,11 +58,14 @@ function App() {
             setTemperDate={setTemperDate}
           />
           <Temperature
+            setSelectedOptionalTemp={setSelectedOptionalTemp}
             setSelectedTemp={setSelectedTemp}
+            setTemperDate={setTemperDate}
             weatherIcon={weatherIcon}
             temperDate={temperDate}
           />
           <TemperatureDetails
+            selectedOptionalTemp={selectedOptionalTemp}
             selectedTemp={selectedTemp}
             weatherIcon={weatherIcon}
             locationResponse={locationResponse}

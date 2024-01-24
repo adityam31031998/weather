@@ -20,27 +20,28 @@ const SearchLocation = ({
       const currentLocation = async () => {
         try {
           let getCurrentFetchApi = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${getLocation.latitude}&lon=${getLocation.longitude}&units=metric&appid=${api_key}`
+            `https://api.openweathermap.org/data/2.5/onecall?lat=${getLocation.latitude}&lon=${getLocation.longitude}&exclude=minutely,alerts&units=metric&appid=${api_key}`
           );
           let response = await getCurrentFetchApi.json();
 
           setlocationResponse(response);
+          setTemperDate(response);
         } catch (error) {
           console.log(error.message, "faid to load api");
         }
       };
       currentLocation();
     }
-  }, [getLocation, setlocationResponse]);
+  }, [getLocation, setlocationResponse, setTemperDate]);
   const handleInput = async (e) => {
     setInputValue(e);
     if (e !== "") {
-      let searchInput = await fetch(
-        // `http://api.openweathermap.org/geo/1.0/direct?q=${e},"IN"&limit=5&appid=${api_key}`
-        `https://api.openweathermap.org/data/2.5/weather?q=${e}&units=metric&appid=${api_key}`
-      );
-      let response = await searchInput.json();
-      setlocationResponse(response);
+      // let searchInput = await fetch(
+      //   // `http://api.openweathermap.org/geo/1.0/direct?q=${e},"IN"&limit=5&appid=${api_key}`
+      //   `https://api.openweathermap.org/data/2.5/weather?q=${e}&units=metric&appid=${api_key}`
+      // );
+      // let response = await searchInput.json();
+      // setlocationResponse(response);
       citylist.forEach((india) => {
         if (
           india.country === "IN" &&
@@ -50,10 +51,11 @@ const SearchLocation = ({
           indialongitude = india.coord.lon;
         }
       });
-      let getInputss = await fetch(
+      let searchInput = await fetch(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${indiaLatitude}&lon=${indialongitude}&exclude=minutely,alerts&units=metric&appid=${api_key}`
       );
-      let res = await getInputss.json();
+      let res = await searchInput.json();
+
       setTemperDate(res);
     }
   };
