@@ -17,7 +17,7 @@ const GetLocation = ({ setGetLocation }) => {
         },
         (error) => {
           alert("unable to fetch loction");
-          console.error(error.message, "unable to find your location");
+          console.error(error.message, "unable to find your location, please turn on your location");
         }
       );
     } else {
