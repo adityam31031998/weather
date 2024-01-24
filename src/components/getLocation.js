@@ -16,8 +16,11 @@ const GetLocation = ({ setGetLocation }) => {
           setGet_Lat_Lon({ latitude, longitude });
         },
         (error) => {
-          alert("unable to fetch loction");
-          console.error(error.message, "unable to find your location, please turn on your location");
+          alert("unable to fetch your loction!!, Please turn on your location");
+          console.error(
+            error.message,
+            "unable to find your location, please turn on your location"
+          );
         }
       );
     } else {
