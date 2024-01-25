@@ -96,6 +96,7 @@ const TemperatureDetails = ({
                     handlePressure?.sunrise * 1000
                   ).toLocaleTimeString()}
                 </p>
+                {console.log(handlePressure)}
               </div>
             </div>
           </div>

@@ -62,23 +62,22 @@ const SearchLocation = ({
   return (
     <div className="searchBox">
       <div className="controlSearchBox">
-        <img
-          className="iconLocation"
-          alt="locationIconLoding"
-          src={iconLocation}
-        />
-        <input
-          className="searchInput"
-          onChange={(e) => handleInput(e.target.value)}
-          value={inputValue}
-          type="text"
-          placeholder="Search"
-        />
-        <img
-          className="iconLocation"
-          alt="locationIconLoding"
-          src={iconSearch}
-        />
+        <div className="iconInput">
+          <img
+            className="iconLocation"
+            alt="locationIconLoding"
+            src={iconLocation}
+          />
+          <input
+            className="searchInput"
+            onChange={(e) => handleInput(e.target.value)}
+            value={inputValue}
+            type="text"
+            placeholder="Search"
+          />
+        </div>
+
+        <img className="iconSearch" alt="locationIconLoding" src={iconSearch} />
       </div>
     </div>
   );
