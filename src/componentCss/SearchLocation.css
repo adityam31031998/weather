@@ -211,8 +211,8 @@
     outline: none;
     border: none;
     font-size: 1.1rem;
-    color: black;
-    background: transparent;
+    color:blue;
+    /* background: transparent; */
   }
   .iconInput {
     display: flex;

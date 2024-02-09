@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "../componentCss/SearchLocation.css";
 import iconLocation from "../assets/icons/location.png";
 import iconSearch from "../assets/icons/searchIcon.png";
@@ -8,7 +8,6 @@ const SearchLocation = ({
   setlocationResponse,
   setTemperDate,
 }) => {
-  const [inputValue, setInputValue] = useState("Delhi");
 
   let api_key = "9d81b01f5cf402f40b5e8ffd43a48762";
   let indiaLatitude;
@@ -34,7 +33,7 @@ const SearchLocation = ({
     }
   }, [getLocation, setlocationResponse, setTemperDate]);
   const handleInput = async (e) => {
-    setInputValue(e);
+
     if (e !== "") {
       // let searchInput = await fetch(
       //   // `http://api.openweathermap.org/geo/1.0/direct?q=${e},"IN"&limit=5&appid=${api_key}`
@@ -71,9 +70,9 @@ const SearchLocation = ({
           <input
             className="searchInput"
             onChange={(e) => handleInput(e.target.value)}
-            value={inputValue}
+         
             type="text"
-            placeholder="Search"
+            placeholder="Enter Cities Name"
           />
         </div>
 
